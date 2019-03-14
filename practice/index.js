@@ -1,1 +1,5 @@
-import './instance'
+// import './instance'
+
+
+
+import './componet'

@@ -23,7 +23,7 @@ setInterval(() => {
 
 
     /** */
-    // app.$set(obj, 'a', i)           //给obj.
+    // app.$set(obj, 'a', i)           //给obj的增加a属性并且赋值i
     // app.$delete
 
 

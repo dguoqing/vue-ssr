@@ -1,23 +1,24 @@
 <template>
     <section class="real-app">
-        <input 
+        <input
             type="text"
             class="add-input"
             autofocus='autofocus'
             placeholder="接下去要做什么？"
             @keyup.enter="addTodo"
         />
-        <Item 
+        <Item
         :todo="todo"
         v-for="todo in filteredTodos"
         :key="todo.id"
         @del="deleteTodo"
          />
-         <Tabs 
+         <Tabs
          :filter="filter"
          @togole="togoleFilter"
          :todos="todos"
          @clearAllCompleted="clearAllCompleted"/>
+         <router-view />
     </section>
 </template>
 <script>
@@ -25,6 +26,27 @@ import Item from './item.vue'
 import Tabs from './tabs.vue'
 let id = 0
 export default {
+    beforeRouteEnter(to, from, next){
+        console.log('todo before enter')
+        next(vm => {
+            console.log('after enter this.id is:'+vm.id)
+        })
+    },
+    beforeRouteUpdate(to, from,next){
+        console.log('todo before update')           //同一个路由下，路由后面的参数变化的时候
+        next()
+    },
+    beforeRouteLeave(to, from,next){
+        console.log('todo before leave')                    //页面离开
+        if(global.confirm('ate you sure ?')){
+
+            next()
+        }
+    },
+    props:['id'],
+    mounted(){
+        console.log(this.id)
+    },
     components:{
         Item,
         Tabs
@@ -80,15 +102,15 @@ export default {
     width 100%
     font-size 24px
     font-family inherit
-    font-weight inherit 
+    font-weight inherit
     line-height 1.4em
     border none
-    outline none 
-    color inherit 
+    outline none
+    color inherit
     box-sizing border-box
     font-smoothing antialiased
     padding 16px 16px 16px 36px
     border none
     box-shadow inset 0 -2px 1px rgba(0, 0, 0, 0.03)
-    
+
 </style>

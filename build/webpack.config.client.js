@@ -13,7 +13,9 @@ const defaultPlugins = [
             NODE_ENV: isDev ? '"development"' : '"production"'
         }
     }),
-    new HtmlWebpackPlugin()                                //引入HtmlWebpackPlugin  
+    new HtmlWebpackPlugin({                         //引入HtmlWebpackPlugin
+            template: path.join(__dirname, 'template.html')
+    })
 ]
 const devServer = {                                //这个devServer的配置是在webpack2.x以后引入的,1.x是没有的
     port: 3000,                                     //访问的端口号
@@ -22,7 +24,10 @@ const devServer = {                                //这个devServer的配置是
         errors: true,                               //编译中遇到的错误都会显示到网页中去
     },
     // open: true ,                                 //项目启动时,会默认帮你打开浏览器
-    hot: true                                       //在单页面应用开发中,我们修改了代码后是整个页面都刷新,开启hot后,将只刷新对应的组件
+    hot: true ,                                      //在单页面应用开发中,我们修改了代码后是整个页面都刷新,开启hot后,将只刷新对应的组件
+    historyApiFallback: {                           //允许手动在地址栏中输入地址跳转，路由匹配，
+        index: '/public/index.html'                            //路径和publicPath有关系
+    }
 }
 
 let config
@@ -42,7 +47,7 @@ if (isDev) {//开发环境
                                 module: true,                   //开启了CSSModules,使用import引入的css样式使用了CSSModules，例如：footer
                                 localIdentName: isDev ? '[path]-[name]-[hash:base64:5]' : '[hash:base64:5]',
                             }
-                        },                     
+                        },
                         {
                             loader: 'postcss-loader',
                             options: {
@@ -50,6 +55,26 @@ if (isDev) {//开发环境
                             }                               //那么postcss-loader可以直接引用前面的sourceMap
                         },
                         'stylus-loader'                     //处理stylus的css预处理器的问题件,转换成css后,抛给上一层的css-loader
+                    ]
+                },
+                {
+                    test: /\.less/,
+                    use: [
+                        'vue-style-loader',                     //将css写入到html中去,vue开发时使用vue-style-loader
+                        {
+                            loader: "css-loader" ,                 //css-loader处理css
+                            options: {
+                                module: false,                   //开启了CSSModules,使用import引入的css样式使用了CSSModules，例如：footer
+                                localIdentName: isDev ? '[path]-[name]-[hash:base64:5]' : '[hash:base64:5]',
+                            }
+                        },
+                        {
+                            loader: 'postcss-loader',
+                            options: {
+                                sourceMap: true,            //less-loader和postcss-loader自己都会生成sourceMap,如果前面less-loader已生成了sourceMap
+                            }                               //那么postcss-loader可以直接引用前面的sourceMap
+                        },
+                        'less-loader'                     //处理less的css预处理器的问题件,转换成css后,抛给上一层的css-loader
                     ]
                 }
             ]
@@ -94,7 +119,7 @@ if (isDev) {//开发环境
             new webpack.optimize.CommonsChunkPlugin({          //定义静态文件打包
                 name: 'vendor'
             }),
-            new webpack.optimize.CommonsChunkPlugin({         //将app.js文件中一些关于webpack文件的配置单独打包出为一个文件,用于解决部分浏览器长缓存问题   
+            new webpack.optimize.CommonsChunkPlugin({         //将app.js文件中一些关于webpack文件的配置单独打包出为一个文件,用于解决部分浏览器长缓存问题
                 name: 'runtime'
             })
         ])

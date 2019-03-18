@@ -14,11 +14,11 @@ const createStore = () => {
         mutations,
         getters,
         actions,
-        plugins: [
-            store => {
-                console.log('store plugins ')
-            }
-        ],
+        // plugins: [
+        //     store => {
+        //         console.log('store plugins ')
+        //     }
+        // ],
         // modules: {                  //store模块,默认将state分模块
         //     a: {
         //         namespaced: true,   //可以将mutations限制作用域，false--mutations是全局的

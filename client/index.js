@@ -17,11 +17,11 @@ Vue.use(Vuex)
 const router = createRouter()
 const store = createStore()
 
-store.registerModule('c', {                 //  动态加载模块
-    state: {
-        text: 3
-    }
-})
+// store.registerModule('c', {                 //  动态注册模块
+//     state: {
+//         text: 3
+//     }
+// })
 
 // store.unregisterModule('c')                 //解绑模块
 

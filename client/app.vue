@@ -7,9 +7,11 @@
     <!-- <p style="textAlign:center;color:red">textA:{{textA}}</p> -->
     <!-- <p style="textAlign:center;color:red">textC:{{textC}}</p> -->
     <!-- <p style="textAlign:center;color:red">textPlus:{{textPlus}}</p> -->
-    <router-link to="/app/123">app页面123</router-link>
-    <router-link to="/app/456">app页面456</router-link>
-    <router-link to="/login">login登录页面</router-link>
+    <p style="textAlign:center">
+        <router-link to="/app/123">app页面123</router-link>
+        <router-link to="/app/456">app页面456</router-link>
+        <router-link to="/login">login登录页面</router-link>
+    </p>
     <!-- <router-link to="/login/exact">login登录页面</router-link> -->
     <transition name="fade">
       <router-view/>
@@ -23,11 +25,16 @@ import {
     mapState,
     mapGetters,
     mapActions,
-    mapMutations
+    mapMutations,
+    createNamespacedHelpers,                    //命名空间辅助函数
 } from 'vuex'
 import Header from "./layout/header.vue";
 // import Footer from "./layout/footer.jsx";
 // import Todo from "./views/todo/todo.vue";
+
+
+// const {mapState,mapMutations} = createNamespacedHelpers('a')            //绑定在给定命名空间值上的组件绑定辅助函数
+
 
 export default {
   components: {
@@ -51,10 +58,12 @@ export default {
     //     num: 5,
     //     time: 2000
     // })
-    // this.updateCountAsync({
-    //     num: 5,
-    //     time: 2000
-    // })
+    this.updateCountAsync({
+        num: 5,
+        time: 2000
+    }).then(() => {
+        console.log('updateCountAsync  Promise')
+    })
     setInterval(() => {
         this.updateCount({
             num: i++
@@ -67,6 +76,7 @@ export default {
   },
   methods: {
     //   ...mapActions(['updateCountAsync','a/add']),
+    //   ...mapActions('a', ['add']),               //a模块下的add
     //   ...mapMutations(['updateCount','a/updateText']),
       ...mapActions(['updateCountAsync']),
       ...mapMutations(['updateCount']),

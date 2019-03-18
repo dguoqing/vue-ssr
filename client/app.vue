@@ -3,6 +3,10 @@
     <div id="cover"></div>
     <Header></Header>
     <!-- <Todo></Todo> -->
+    <p style="textAlign:center;color:red">count:{{fullName}}{{counter}}</p>
+    <!-- <p style="textAlign:center;color:red">textA:{{textA}}</p> -->
+    <!-- <p style="textAlign:center;color:red">textC:{{textC}}</p> -->
+    <!-- <p style="textAlign:center;color:red">textPlus:{{textPlus}}</p> -->
     <router-link to="/app/123">app页面123</router-link>
     <router-link to="/app/456">app页面456</router-link>
     <router-link to="/login">login登录页面</router-link>
@@ -15,6 +19,12 @@
   </div>
 </template>
 <script>
+import {
+    mapState,
+    mapGetters,
+    mapActions,
+    mapMutations
+} from 'vuex'
 import Header from "./layout/header.vue";
 // import Footer from "./layout/footer.jsx";
 // import Todo from "./views/todo/todo.vue";
@@ -30,9 +40,60 @@ export default {
       text: "hello word"
     };
   },
-//   mounted(){
-//       console.log(this.$route)
-//   }
+  mounted(){
+    //   console.log(this.$route)
+    // console.log(this.$store,this['a/textPlus'])
+    let i = 0;
+    // setInterval(()=>{
+    //     this.$store.commit('updateCount', i++)                  //commit只能接受两个参数，一个是mutation函数名字，和载荷payload
+    // }, 1000)
+    // this.$store.dispatch('updateCountAsync', {
+    //     num: 5,
+    //     time: 2000
+    // })
+    // this.updateCountAsync({
+    //     num: 5,
+    //     time: 2000
+    // })
+    setInterval(() => {
+        this.updateCount({
+            num: i++
+        })
+    },1000)
+    console.log(this.counter)
+    // this['a/updateText']('123')
+    // this['a/add']()
+    // this.$store.state.count =1
+  },
+  methods: {
+    //   ...mapActions(['updateCountAsync','a/add']),
+    //   ...mapMutations(['updateCount','a/updateText']),
+      ...mapActions(['updateCountAsync']),
+      ...mapMutations(['updateCount']),
+  },
+  computed: {
+    //   count(){
+    //       return this.$store.state.count
+    //   },
+    // ...mapState(['count']),     //和store里面同名是使用
+    ...mapState({
+        // counter:'count'
+        counter: state => state.count,
+        // textA: state => state.a.text,
+        // textC: state => state.c.text
+    }),
+    // ...mapGetters(['fullName','a/textPlus']),
+    ...mapGetters({
+        fullName:'fullName',
+        // textPlus: 'a/textPlus'
+    }),
+    //   fullName(){
+    //       return this.$store.getters.fullName
+    //   },
+    // textA(){
+    //       return this.$store.state.b.text
+    //   }
+  }
 };
 </script>
 <style lang="less" scoped>

@@ -26,6 +26,9 @@ import Item from './item.vue'
 import Tabs from './tabs.vue'
 let id = 0
 export default {
+    metaInfo: {
+        title: 'The Todo App'
+    },
     beforeRouteEnter(to, from, next){
         console.log('todo before enter')
         next(vm => {
@@ -38,10 +41,10 @@ export default {
     },
     beforeRouteLeave(to, from,next){
         console.log('todo before leave')                    //页面离开
-        if(global.confirm('ate you sure ?')){
+        // if(global.confirm('ate you sure ?')){
 
             next()
-        }
+        // }
     },
     props:['id'],
     mounted(){

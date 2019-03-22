@@ -1,0 +1,17 @@
+
+/**
+ * 处理静态资源
+ */
+
+const Router = require('koa-router')
+const send = require('koa-send')
+
+const staticRouter = new Router({
+    prefix: '/public'               //只会处理/public下面的文件
+})
+
+staticRouter.get('/*', async ctx => {
+    await send(ctx, ctx.path)
+})
+
+module.exports = staticRouter

@@ -4,6 +4,7 @@ const webpack = require("webpack")                      //引入webpack
 const ExtractPlugin = require("extract-text-webpack-plugin")
 const merge = require('webpack-merge')//合并webpack
 const baseConfig = require('./webpack.config.base')
+const VueClientPlugin = require('vue-server-renderer/client-plugin')
 
 const isDev = process.env.NODE_ENV === "development"    //判断是否为测试环境,在启动脚本时设置的环境变量都是存在于process.env这个对象里面的
 
@@ -15,7 +16,8 @@ const defaultPlugins = [
     }),
     new HtmlWebpackPlugin({                         //引入HtmlWebpackPlugin
             template: path.join(__dirname, 'template.html')
-    })
+    }),
+    new VueClientPlugin()                           //默认生成这个文件vue-ssr-client-manifest.json
 ]
 const devServer = {                                //这个devServer的配置是在webpack2.x以后引入的,1.x是没有的
     port: 3000,                                     //访问的端口号
@@ -88,11 +90,12 @@ if (isDev) {//开发环境
 } else {//正式环境
     config = merge(baseConfig, {
         entry: {
-            app: path.join(__dirname, '../client/index.js'),
+            app: path.join(__dirname, '../client/client-entry.js'),
             vendor: ['vue']   //第三方的插件单独打包，利用浏览器缓存，可以节省加载时间和流量
         },
         output: {
-            filename: '[name].[chunkhash:8].js'  //此处一定是chunkhash,因为用hash时app和vendor的hash码是一样的了,这样每次业务代码更新,vendor也会更新,也就没有了意义.
+            filename: '[name].[chunkhash:8].js',  //此处一定是chunkhash,因为用hash时app和vendor的hash码是一样的了,这样每次业务代码更新,vendor也会更新,也就没有了意义.
+            publicPath:'/public/'
         },
         module: {
             rules: [
@@ -109,6 +112,22 @@ if (isDev) {//开发环境
                                 }                               //那么postcss-loader可以直接引用前面的sourceMap
                             },
                             'stylus-loader'                     //处理stylus的css预处理器的问题件,转换成css后,抛给上一层的css-loader
+                        ]
+                    })
+                },
+                {
+                    test: /\.less/,
+                    use: ExtractPlugin.extract({
+                        fallback: 'vue-style-loader',
+                        use: [
+                            'css-loader',                       //css-loader处理css
+                            {
+                                loader: 'postcss-loader',
+                                options: {
+                                    sourceMap: true,            //less-loader和postcss-loader自己都会生成sourceMap,如果前面less-loader已生成了sourceMap
+                                }                               //那么postcss-loader可以直接引用前面的sourceMap
+                            },
+                            'less-loader'                     //处理less的css预处理器的问题件,转换成css后,抛给上一层的css-loader
                         ]
                     })
                 },

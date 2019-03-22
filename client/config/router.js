@@ -23,7 +23,7 @@ export default () => {                  //每次引入的时候才会去new 一�
                 return {x:0,y:0}
             }
         },
-        fallback:true,                  //解决路由跳转，页面不变化，有的游览器不支持，就会每次跳转都会请求服务器，单页面就变成多页面应用了
+        // fallback:true,                  //解决路由跳转，页面不变化，有的游览器不支持，就会每次跳转都会请求服务器，单页面就变成多页面应用了
         // parseQuery(query){           //将?a=xxx&b=CCC转化成obj
 
         // },

@@ -7,13 +7,13 @@ export default [
         redirect: '/app',              //重定向，地址是/的时候，加载app组件
     },
     {
-        // path: '/app/:id',               //挂载到params
+        path: '/app',               //挂载到params
         props: true,                        //将参数id已props的形式传到Todo组件
         // props: {
         //     id:456
         // },
         // props: route => ({id: route.query.b}),
-        path: '/app/:id',
+        // path: '/app',
         // components: {               //路由视图
         //     default: Todo,
         //     a:Login

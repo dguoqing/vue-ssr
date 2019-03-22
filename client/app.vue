@@ -8,8 +8,8 @@
     <!-- <p style="textAlign:center;color:red">textC:{{textC}}</p> -->
     <!-- <p style="textAlign:center;color:red">textPlus:{{textPlus}}</p> -->
     <p style="textAlign:center">
-        <router-link to="/app/123">app页面123</router-link>
-        <router-link to="/app/456">app页面456</router-link>
+        <router-link to="/app">app页面123</router-link>
+        <router-link to="/app">app页面456</router-link>
         <router-link to="/login">login登录页面</router-link>
     </p>
     <!-- <router-link to="/login/exact">login登录页面</router-link> -->
@@ -37,6 +37,9 @@ import Header from "./layout/header.vue";
 
 
 export default {
+    metaInfo:{
+        title:'app'
+    },
   components: {
     Header,
     // Footer,

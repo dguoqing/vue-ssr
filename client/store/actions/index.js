@@ -6,7 +6,7 @@ export default{
         console.log(store)
         return new Promise((resolve,reject) => {
             setTimeout(() => {
-                console.log(11111)
+
                 store.commit('updateCount', payload)
                 resolve()
             },payload.time)

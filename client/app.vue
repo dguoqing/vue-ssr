@@ -8,16 +8,18 @@
     <!-- <p style="textAlign:center;color:red">textC:{{textC}}</p> -->
     <!-- <p style="textAlign:center;color:red">textPlus:{{textPlus}}</p> -->
     <p style="textAlign:center">
-        <router-link to="/app">app页面123</router-link>
-        <router-link to="/app">app页面456</router-link>
+        <!-- <router-link to="/app">app页面123</router-link> -->
+        <router-link style="marginRight:20px" to="/app">app页面</router-link>
         <router-link to="/login">login登录页面</router-link>
     </p>
     <!-- <router-link to="/login/exact">login登录页面</router-link> -->
     <transition name="fade">
       <router-view/>
     </transition>
+    <button @click="notify">click me</button>
+    <!-- <notification content='test notify'></notification> -->
     <!-- <Footer></Footer> -->
-    <router-view name="a"/>
+    <!-- <router-view name="a"/> -->
   </div>
 </template>
 <script>
@@ -51,6 +53,12 @@ export default {
     };
   },
   mounted(){
+
+    //   this.$notify({
+    //       content:'test $notify',
+    //       btn:'close'
+    //   })
+
     //   console.log(this.$route)
     // console.log(this.$store,this['a/textPlus'])
     let i = 0;
@@ -83,6 +91,12 @@ export default {
     //   ...mapMutations(['updateCount','a/updateText']),
       ...mapActions(['updateCountAsync']),
       ...mapMutations(['updateCount']),
+      notify(){
+          this.$notify({
+            content:'test $notify',
+            btn:'close'
+        })
+      }
   },
   computed: {
     //   count(){

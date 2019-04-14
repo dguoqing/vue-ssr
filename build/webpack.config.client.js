@@ -27,6 +27,7 @@ const devServer = {                                //这个devServer的配置是
     },
     // open: true ,                                 //项目启动时,会默认帮你打开浏览器
     hot: true ,                                      //在单页面应用开发中,我们修改了代码后是整个页面都刷新,开启hot后,将只刷新对应的组件
+    headers: {'Access-Control-Allow-Origin': '*'},  //解决本地出现跨域问题
     historyApiFallback: {                           //允许手动在地址栏中输入地址跳转，路由匹配，
         index: '/public/index.html'                            //路径和publicPath有关系
     }

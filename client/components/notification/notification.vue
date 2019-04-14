@@ -1,7 +1,8 @@
 <template>
-  <transition name="fade">
+  <transition name="fade" @after-leave="afterLeave" @after-enter="afterEnter">
     <div class="notification"
-    :style="style">
+    :style="style"
+    v-show="visible">
       <span class="content">{{content}}</span>
       <a href="javascript:void(0);" class="btn" @click="handleClose">{{btn}}</a>
     </div>
@@ -9,28 +10,39 @@
 </template>
 <script>
 export default {
-  name: "Notification",
-  props: {
-    content: {
-      type: String,
-      required: true
+    name: "Notification",
+    props: {
+        content: {
+            type: String,
+            required: true
+        },
+        btn: {
+            type: String,
+            default: "关闭"
+        }
     },
-    btn: {
-      type: String,
-      default: "关闭"
-    }
-  },
-  computed: {
-      style(){
-          return {}
-      }
-  },
-  methods: {
+    data(){
+        return {
+            visible:true
+        }
+    },
+    computed: {
+        style(){
+            return {}
+        }
+    },
+    methods: {
         handleClose(e) {
-      e.preventDefault();
-      this.$emit("close");
+            e.preventDefault();
+            this.$emit("close");
+        },
+        afterLeave(){
+            this.$emit("closed");
+        },
+        afterEnter() {
+
+        }
     }
-  }
 };
 </script>
 <style lang="less" scoped>

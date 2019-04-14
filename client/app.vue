@@ -94,7 +94,7 @@ export default {
       notify(){
           this.$notify({
             content:'test $notify',
-            btn:'close'
+            btn:'close',
         })
       }
   },

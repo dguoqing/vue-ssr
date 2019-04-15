@@ -8,20 +8,19 @@ let seed = 1
 
 const removeInstance = instance => {
     if(!instance) return
-    const len = instance.length
+    const len = instances.length
     const index = instances.findIndex(inst => instance.id === inst.id)
     instances.splice(index, 1)
 
     if(len <= 1) return
     const removeHeight = instance.vm.height
-    console.log(removeHeight)
     for(let i = index; i < len - 1; i++){
         instances[i].verticalOffset = parseInt(instances[i].verticalOffset) - removeHeight - 16
     }
 }
 const notify = options => {
     if(Vue.prototype.$isServer) return              //如果是服务端，直接return
-console.log('options',options)
+    console.log('options',options)
     const {
         autoClose,
         ...rest
@@ -32,7 +31,7 @@ console.log('options',options)
             ...rest
         },
         data: {
-            autoClose: autoClose === undefined ? 3000 : autoClose
+            autoClose: autoClose === undefined ? 30000 : autoClose
         }
     })
     const id = `notification${seed++}`

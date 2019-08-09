@@ -53,7 +53,7 @@ export default {
     };
   },
   mounted(){
-
+      console.log(this)
     //   this.$notify({
     //       content:'test $notify',
     //       btn:'close'

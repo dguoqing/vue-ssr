@@ -31,7 +31,7 @@ const notify = options => {
             ...rest
         },
         data: {
-            autoClose: autoClose === undefined ? 30000 : autoClose
+            autoClose: autoClose === undefined ? 3000 : autoClose
         }
     })
     const id = `notification${seed++}`

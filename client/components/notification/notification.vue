@@ -2,7 +2,10 @@
   <transition name="fade" @after-leave="afterLeave" @after-enter="afterEnter">
     <div class="notification"
     :style="style"
-    v-show="visible">
+    v-show="visible"
+    @mouseover="clearTimer"
+    @mouseleave="createTimer"
+    >
       <span class="content">{{content}}</span>
       <a href="javascript:void(0);" class="btn" @click="handleClose">{{btn}}</a>
     </div>
@@ -41,7 +44,9 @@ export default {
         },
         afterEnter() {
 
-        }
+        },
+        clearTimer(){},
+        createTimer(){},
     }
 };
 </script>

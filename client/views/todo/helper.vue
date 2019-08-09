@@ -1,16 +1,16 @@
 <template>
     <div class="helper">
         <span class="left"> {{unFinishedTodoLength}} items left</span>
-        <span class="tabs">
-            <span v-for="state in states" 
-            :key="state" 
+        <!-- <span class="tabs">
+            <span v-for="state in states"
+            :key="state"
             :class="[filter === state ? 'actived' : '']"
             @click="toggleFilter(state)"
             >
             {{state}}
             </span>
-        </span>  
-        <span class="clear" @click="clearAllCompleted">clear all completed</span>  
+        </span>   -->
+        <span class="clear" @click="clearAllCompleted">clear all completed</span>
     </div>
 </template>
 <script>
@@ -30,18 +30,18 @@ export default {
             return this.todos.filter(todo => !todo.completed).length
         }
     },
-    data(){
-        return {
-            states: ['all', 'actived', 'completed']
-        }
-    },
+    // data(){
+    //     return {
+    //         states: ['all', 'actived', 'completed']
+    //     }
+    // },
     methods: {
         clearAllCompleted(){
             this.$emit('clearAllCompleted')
         },
-        toggleFilter(state){
-            this.$emit("togole",state)
-        }
+        // toggleFilter(state){
+        //     this.$emit("togole",state)
+        // }
     }
 }
 </script>

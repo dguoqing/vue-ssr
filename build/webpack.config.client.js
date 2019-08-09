@@ -85,14 +85,14 @@ if (isDev) {//开发环境
         devServer,
         plugins: defaultPlugins.concat([
             new webpack.HotModuleReplacementPlugin(),//添加两个插件用于hot:true的配置
-            new webpack.NoEmitOnErrorsPlugin()
+            // new webpack.NoEmitOnErrorsPlugin()
         ])
     })                                            //如果是测试环境下的一些配置
 } else {//正式环境
     config = merge(baseConfig, {
         entry: {
             app: path.join(__dirname, '../client/client-entry.js'),
-            vendor: ['vue']   //第三方的插件单独打包，利用浏览器缓存，可以节省加载时间和流量
+            // vendor: ['vue']   //第三方的插件单独打包，利用浏览器缓存，可以节省加载时间和流量
         },
         output: {
             filename: '[name].[chunkhash:8].js',  //此处一定是chunkhash,因为用hash时app和vendor的hash码是一样的了,这样每次业务代码更新,vendor也会更新,也就没有了意义.
@@ -134,14 +134,20 @@ if (isDev) {//开发环境
                 },
             ]
         },
+        optimization:{
+            splitChunks:{
+                chunks:"all"
+            },
+            runtimeChunk:true
+        },
         plugins: defaultPlugins.concat([
             new ExtractPlugin('styles.[contentHash:8].css'),   //定义打包分离出的css文件名
-            new webpack.optimize.CommonsChunkPlugin({          //定义静态文件打包
-                name: 'vendor'
-            }),
-            new webpack.optimize.CommonsChunkPlugin({         //将app.js文件中一些关于webpack文件的配置单独打包出为一个文件,用于解决部分浏览器长缓存问题
-                name: 'runtime'
-            })
+            // new webpack.optimize.CommonsChunkPlugin({          //定义静态文件打包
+            //     name: 'vendor'
+            // }),
+            // new webpack.optimize.CommonsChunkPlugin({         //将app.js文件中一些关于webpack文件的配置单独打包出为一个文件,用于解决部分浏览器长缓存问题
+            //     name: 'runtime'
+            // })
         ])
     })
 }

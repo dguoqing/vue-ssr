@@ -141,7 +141,7 @@ if (isDev) {//开发环境
             runtimeChunk:true
         },
         plugins: defaultPlugins.concat([
-            new ExtractPlugin('styles.[contentHash:8].css'),   //定义打包分离出的css文件名
+            new ExtractPlugin('styles.[md5:contentHash:hex:8].css'),   //定义打包分离出的css文件名
             // new webpack.optimize.CommonsChunkPlugin({          //定义静态文件打包
             //     name: 'vendor'
             // }),

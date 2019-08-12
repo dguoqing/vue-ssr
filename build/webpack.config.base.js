@@ -1,6 +1,7 @@
 const path = require('path')                            //path是Nodejs中的基本包,用来处理路径
 const createVueLoaderOptions = require('./vue-loader.config')// 使用 vue-loader
 //rimraf 每次打包都把老的包删除掉
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 const isDev = process.env.NODE_ENV === "development"    //判断是否为测试环境,在启动脚本时设置的环境变量都是存在于process.env这个对象里面的
 
@@ -32,8 +33,15 @@ const config = {
             },
             {
                 test: /\.js$/,
-                loader: 'babel-loader' ,
-                exclude:/node_modules/                 //除了node
+                exclude:/node_modules/,                 //除了node
+                use: {
+                    loader: 'babel-loader' ,
+                    // options: {
+                    //     babelrc:false,
+                    //     presets:['@babel/preset-env'],
+                    //     plugins:['transform-vue-jsx','@babel/plugin-syntax-dynamic-import']
+                    // }
+                }
             },
             {
                 test: /\.(gif|jpg|jpeg|png|svg)$/,      //处理图片
@@ -48,7 +56,10 @@ const config = {
                 ]
             }
         ]
-    }
+    },
+    plugins:[
+        new VueLoaderPlugin()
+    ]
 
 }
 

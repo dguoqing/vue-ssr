@@ -10,7 +10,7 @@ let config
 
 const isDev = process.env.NODE_ENV === 'development'
 const plugins = [
-    new ExtractPlugin('styles.[contentHash:8].css'),   //定义打包分离出的css文件名
+    new ExtractPlugin('styles.[md5:contentHash:hex:8].css'),   //定义打包分离出的css文件名
     new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
         'process.env.NODE_ENV': '"server"'

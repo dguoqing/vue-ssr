@@ -42,6 +42,18 @@ export default [
         // },
         component:() => import('../views/login/login.vue')
     },
+    {
+        path: '/checkbox',
+        // components: {
+        //     default: Login,
+        //     a:Todo
+        // },
+        component:() => import('../views/checkbox/index.vue')
+    },
+    {
+        path:'/listener-attrs',
+        component:() => import('../views/listenersAttrs/index.vue')
+    }
     // {            //router-link的class不同
     //     path: '/login/exact',
     //     component: Login

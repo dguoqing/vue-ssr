@@ -6,6 +6,8 @@ import App from './app.vue'
 // import './assets/style/style-stylus.styl'
 // import './assets/style/style-less.less'
 import './assets/style/global.less'
+import moment from 'moment'
+moment.locale('zh')
 
 
 import createRouter from './config/router'
